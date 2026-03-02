@@ -1,0 +1,37 @@
+{
+  "name": "code-coverage-badge",
+  "version": "1.0.0",
+  "description": "Generate SVG coverage badges from test output. No external services. Self-hosted.",
+  "type": "module",
+  "bin": {
+    "code-coverage-badge": "./index.js",
+    "ccb": "./index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "developer-tools",
+    "cli",
+    "nodejs",
+    "zero-dependencies",
+    "testing",
+    "coverage",
+    "badge",
+    "ci"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NickCirv/code-coverage-badge"
+  },
+  "homepage": "https://github.com/NickCirv/code-coverage-badge#readme",
+  "bugs": {
+    "url": "https://github.com/NickCirv/code-coverage-badge/issues"
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE"
+  ]
+}
