@@ -1,3 +1,5 @@
+![Banner](banner.svg)
+
 # code-coverage-badge
 > Generate SVG coverage badges from test output. No shields.io. No coveralls. Fully self-hosted.
 
