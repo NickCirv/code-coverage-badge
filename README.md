@@ -1,81 +1,63 @@
-![Banner](banner.svg)
+<div align="center">
 
 # code-coverage-badge
-> Generate SVG coverage badges from test output. No shields.io. No coveralls. Fully self-hosted.
 
-```bash
-npx code-coverage-badge
-npx code-coverage-badge --readme
-```
+**Generate self-hosted SVG coverage badges from Jest, Vitest, LCOV, or Clover output — no external services.**
 
-```
-code-coverage-badge
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Detected: coverage/coverage-summary.json (Jest)
-  Lines        87.5% ████████████████░░░  ✓ GREEN  ◀
-  Branches     72.3% █████████████░░░░░░  △ YELLOW
-  Functions    91.0% █████████████████░░  ✓ GREEN
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?labelColor=0B0A09)](LICENSE)
+[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?labelColor=0B0A09)](package.json)
+[![Node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?labelColor=0B0A09)](package.json)
 
-  Badge saved: coverage-badge.svg
-  README updated: ![coverage](./coverage-badge.svg)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
-
-## Commands
-
-| Command | Description |
-|---------|-------------|
-| `ccb` | Auto-detect coverage, generate badge |
-| `--coverage 87.5` | Provide coverage directly |
-| `--readme` | Update README.md badge |
-| `--metric lines\|branches\|functions\|statements` | Which metric to badge |
-| `--thresholds 90,75,60` | Green/yellow/red thresholds |
-| `--style flat\|flat-square\|for-the-badge` | Badge style |
-| `--threshold 80` | Exit 1 if below N% (CI mode) |
-| `--commit` | Git commit the badge update |
-| `--output <file>` | Custom SVG output path |
-| `--label <text>` | Custom badge label text |
-| `--format svg\|json\|text` | Output format |
-
-## Supported Coverage Formats
-
-| Format | File | Tools |
-|--------|------|-------|
-| JSON Summary | `coverage/coverage-summary.json` | Jest, Vitest |
-| LCOV | `coverage/lcov.info` | Istanbul, nyc, c8 |
-| Clover XML | `coverage/clover.xml` | PHPUnit, Istanbul |
-| Raw | `--coverage 87.5` | Any |
-
-## Colors
-
-| Coverage | Color |
-|----------|-------|
-| ≥ 90% (high threshold) | Green `#4c1` |
-| ≥ 75% (medium threshold) | Yellow `#dfb317` |
-| ≥ 60% (low threshold) | Orange `#fe7d37` |
-| < 60% | Red `#e05d44` |
-
-Thresholds are fully configurable via `--thresholds 90,75,60`.
-
-## CI Usage
-
-```yaml
-# GitHub Actions example
-- name: Generate coverage badge
-  run: |
-    npm test -- --coverage
-    npx code-coverage-badge --readme --threshold 80 --commit
-```
-
-Exit code `1` is returned if coverage is below `--threshold`, making it CI-safe.
+</div>
 
 ## Install
 
 ```bash
-npx code-coverage-badge
-npm install -g code-coverage-badge
+npx github:NickCirv/code-coverage-badge
+```
+
+## Usage
+
+```bash
+# Auto-detect coverage file and generate badge
+npx github:NickCirv/code-coverage-badge
+
+# Update README.md badge inline
+npx github:NickCirv/code-coverage-badge --readme
+
+# Provide coverage directly (skips file detection)
+npx github:NickCirv/code-coverage-badge --coverage 87.5
+
+# CI mode: exit 1 if coverage is below threshold
+npx github:NickCirv/code-coverage-badge --threshold 80 --readme --commit
+```
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--coverage <n>` | — | Raw percentage (skips file detection) |
+| `--readme` | false | Update `README.md` badge automatically |
+| `--threshold <n>` | — | Exit 1 if coverage below N% (CI gate) |
+| `--metric lines\|branches\|functions\|statements` | `lines` | Which metric to badge |
+| `--thresholds <h,m,l>` | `90,75,60` | Green / yellow / red cutoffs |
+| `--style flat\|flat-square\|for-the-badge` | `flat` | Badge style |
+| `--format svg\|json\|text` | `svg` | Output format |
+| `--output <file>` | `coverage-badge.svg` | SVG output path |
+| `--label <text>` | `coverage` | Badge label text |
+| `--commit` | false | Git-commit the badge + README after update |
+
+## What it does
+
+Reads your existing coverage report (`coverage/coverage-summary.json`, `coverage/lcov.info`, or `coverage/clover.xml`), extracts the requested metric, and writes a colour-coded SVG badge — green above your high threshold, yellow above medium, orange above low, red below. Use `--readme` to automatically splice the badge into your `README.md`, and `--threshold` to fail CI builds that drop below a coverage floor.
+
+## GitHub Actions example
+
+```yaml
+- name: Generate coverage badge
+  run: |
+    npm test -- --coverage
+    npx github:NickCirv/code-coverage-badge --readme --threshold 80 --commit
 ```
 
 ---
 
-**Zero dependencies** · **Node 18+** · Made by [NickCirv](https://github.com/NickCirv) · MIT
+<sub>Zero dependencies · Node >=18 · MIT · by <a href="https://github.com/NickCirv">NickCirv</a></sub>
