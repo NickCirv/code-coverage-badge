@@ -1,63 +1,70 @@
-<div align="center">
+![Nicholas Ashkar — code-coverage-badge](assets/nicholas-ashkar/banner.png)
 
 # code-coverage-badge
 
-**Generate self-hosted SVG coverage badges from Jest, Vitest, LCOV, or Clover output — no external services.**
+Generates local coverage badges from reports or an explicitly supplied percentage.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue?labelColor=0B0A09)](LICENSE)
-[![Zero dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?labelColor=0B0A09)](package.json)
-[![Node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?labelColor=0B0A09)](package.json)
 
-</div>
 
-## Install
 
-```bash
-npx github:NickCirv/code-coverage-badge
-```
 
-## Usage
 
-```bash
-# Auto-detect coverage file and generate badge
-npx github:NickCirv/code-coverage-badge
+<a id="usage"></a>
 
-# Update README.md badge inline
-npx github:NickCirv/code-coverage-badge --readme
+<a id="auto-detect-coverage-file-and-generate-badge"></a>
 
-# Provide coverage directly (skips file detection)
-npx github:NickCirv/code-coverage-badge --coverage 87.5
+<a id="update-readmemd-badge-inline"></a>
 
-# CI mode: exit 1 if coverage is below threshold
-npx github:NickCirv/code-coverage-badge --threshold 80 --readme --commit
-```
+<a id="provide-coverage-directly-skips-file-detection"></a>
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--coverage <n>` | — | Raw percentage (skips file detection) |
-| `--readme` | false | Update `README.md` badge automatically |
-| `--threshold <n>` | — | Exit 1 if coverage below N% (CI gate) |
-| `--metric lines\|branches\|functions\|statements` | `lines` | Which metric to badge |
-| `--thresholds <h,m,l>` | `90,75,60` | Green / yellow / red cutoffs |
-| `--style flat\|flat-square\|for-the-badge` | `flat` | Badge style |
-| `--format svg\|json\|text` | `svg` | Output format |
-| `--output <file>` | `coverage-badge.svg` | SVG output path |
-| `--label <text>` | `coverage` | Badge label text |
-| `--commit` | false | Git-commit the badge + README after update |
+<a id="github-actions-example"></a>
 
 ## What it does
 
-Reads your existing coverage report (`coverage/coverage-summary.json`, `coverage/lcov.info`, or `coverage/clover.xml`), extracts the requested metric, and writes a colour-coded SVG badge — green above your high threshold, yellow above medium, orange above low, red below. Use `--readme` to automatically splice the badge into your `README.md`, and `--threshold` to fail CI builds that drop below a coverage floor.
+- Coverage-summary, LCOV and Clover readers.
+- SVG styles.
+- Metric selection.
+- Optional threshold exit status.
 
-## GitHub Actions example
 
-```yaml
-- name: Generate coverage badge
-  run: |
-    npm test -- --coverage
-    npx github:NickCirv/code-coverage-badge --readme --threshold 80 --commit
+<a id="install"></a>
+
+## Quickstart
+
+Prerequisites: Node.js `>=20` and npm; Git is also used by the implementation. The checkout below pins the source used for this documentation.
+
+```sh
+git clone https://github.com/NickCirv/code-coverage-badge.git
+cd code-coverage-badge
+git checkout 66f4a2bdca664e4ad2bf1370f513942fc09dbb67
+node index.js --coverage 87.5 --format text
 ```
 
----
+**Expected behavior (illustrative, not captured):** Displays a textual representation of the illustrative 87.5% input without claiming measured coverage.
 
-<sub>Zero dependencies · Node >=18 · MIT · by <a href="https://github.com/NickCirv">NickCirv</a></sub>
+Examples are source-inspected, **not runtime-tested**. See the research record for verification gaps.
+
+## Boundaries and data
+
+A supplied percentage is accepted input, not test evidence. --readme edits documentation and --commit creates a Git commit. Coverage reports must come from a separate test run.
+
+
+<a id="ci-mode-exit-1-if-coverage-is-below-threshold"></a>
+
+## Development
+
+The manifest defines `npm test` as:
+
+```sh
+node --test
+```
+
+The captured suite is a smoke check, not end-to-end behavior coverage. Examples include “entry is valid JavaScript”. Tests were not run for this documentation revision.
+
+See [implementation and command reference](docs/REFERENCE.md) for the package scripts and inspected interfaces, and [research record](docs/RESEARCH.md) for the pinned source, document decisions and unresolved checks.
+
+## License and contact
+
+See [LICENSE](LICENSE) for the original terms and attribution. Legal text is unchanged.
+
+[Nicholas Ashkar](https://nicholashkar.com/) · [Discuss a project](https://nicholashkar.com/#oxblood-contact)
